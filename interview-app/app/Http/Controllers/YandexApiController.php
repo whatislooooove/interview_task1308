@@ -11,6 +11,11 @@ class YandexApiController extends Controller
 {
     public function getAddressInfo(Request $req)
     {
+        $req->validate(['addressName' => [
+            'required',
+            'bail',
+            'min:5'
+    ]]);
         $addressData = new GetAddressData();
         $res = $addressData->client->request('GET', '/3.0/items', [
             'query' => [
@@ -28,7 +33,7 @@ class YandexApiController extends Controller
         else {
             foreach ($resArray['result']['items'] as $item) {
                 $result['items'][] = [
-                    'district' => $item['adm_div'][count($item['adm_div']) - 1]['name'],
+                    'district' => array_key_exists('adm_div', $item) ? $item['adm_div'][count($item['adm_div']) - 1]['name'] : 'None',
                     'name' => array_key_exists('address_name', $item) ? $item['address_name'] : 'None'
                 ];
             }
