@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    '2gis_api_key' => env('2GIS_API_KEY', '0')
+
 ];
