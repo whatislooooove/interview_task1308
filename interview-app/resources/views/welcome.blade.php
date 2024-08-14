@@ -7,7 +7,7 @@
                 @csrf <!-- {{ csrf_field() }} -->
                 <div class="mb-3">
                     <label for="exampleInputAddress" class="form-label">Адрес</label>
-                    <input type="text" class="form-control" id="addressId" name="addressName" aria-describedby="addressHelp" required>
+                    <input type="text" class="form-control" id="addressId" name="addressName" aria-describedby="addressHelp" required maxlength="100">
                     <div id="addressHelp" class="form-text">Введите адрес, по которому хотите получить информацию</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Получить</button>

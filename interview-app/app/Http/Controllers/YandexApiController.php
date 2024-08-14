@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Components\GetAddressData;
+use App\Models\UserQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class YandexApiController extends Controller
 {
@@ -30,6 +32,14 @@ class YandexApiController extends Controller
                     'name' => array_key_exists('address_name', $item) ? $item['address_name'] : 'None'
                 ];
             }
+        }
+
+        $validated = \validator(['query' => $req->input('addressName')], ['query' => 'unique:App\Models\UserQuery,query']);
+        if ($validated->passes()) {
+            UserQuery::create([
+                'user_id' => Auth::id(),
+                'query' => $req->input('addressName')
+            ]);
         }
         return view('welcome', compact('result'));
     }
